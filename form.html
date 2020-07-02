@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase-firestore.js"></script>
+
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyDTEkjOJTAE6hmrxsKuA2oJbaHWuIvf_wI",
+                authDomain: "webarch-db1c1.firebaseapp.com",
+                databaseURL: "https://webarch-db1c1.firebaseio.com",
+                projectId: "webarch-db1c1",
+                storageBucket: "webarch-db1c1.appspot.com",
+                messagingSenderId: "309696302063",
+                appId: "1:309696302063:web:f35274a8f5d9f3f5f1041a",
+            };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+            function writer() {
+                base_provider = new firebase.auth.GoogleAuthProvider();
+                firebase
+                    .auth()
+                    .signInWithPopup(base_provider)
+                    .then(function (result) {
+                        console.log(result.additionalUserInfo.profile.id);
+                    })
+                    .catch(function (err) {
+                        console.log(err);
+                    });
+                firebase.auth().onAuthStateChanged((user) => {
+                    if (user) {
+                        window.location = "input.html"; //After successful login, user will be redirected to home.html
+                    }
+                });
+            }
+        </script>
+        <div>
+            <button onclick="writer()">Google Authentication</button>
+        </div>
+    </body>
+</html>
